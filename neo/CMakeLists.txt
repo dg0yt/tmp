@@ -1535,7 +1535,7 @@ if(MSVC)
 		add_definitions(-DUSE_OPENAL)
 	
 		find_package(OpenAL CONFIG REQUIRED)
-		if (OPENAL_FOUND)
+		if (OpenAL_FOUND)
 			include_directories(${OPENAL_INCLUDE_DIR})
 			# if (MSVC AND ALL_STATIC)
 			# 	set(OpenAL_LIBRARY
@@ -1544,7 +1544,7 @@ if(MSVC)
 			# else()
 				set(OpenAL_LIBRARY PRIVATE OpenAL::OpenAL)
 			# endif()
-		else (OPENAL_FOUND)
+		else (OpenAL_FOUND)
 			include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/include)
 		
 			link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/libs/${OS_CPU})
@@ -1552,7 +1552,7 @@ if(MSVC)
 			set(OpenAL_LIBRARY
 				OpenAL32)
 			install(FILES libs/openal-soft/libs/${OS_CPU}/OpenAL32.dll DESTINATION .)
-		endif (OPENAL_FOUND)
+		endif (OpenAL_FOUND)
 		
 		
 		list(APPEND RBDOOM3_INCLUDES 
@@ -1822,14 +1822,14 @@ if(MSVC)
 	#GK: add +set r_fullscreen "0" command line (VS DEBUGGER and Fullscreen not a good mix)
 	set_target_properties(DoomBFA PROPERTIES VS_DEBUGGER_COMMAND_ARGUMENTS "+set r_fullscreen 0")
 	
-	if (NOT OPENAL_FOUND)
+	if (NOT OpenAL_FOUND)
 		add_custom_command(TARGET DoomBFA
 					   POST_BUILD
 					   COMMAND ${CMAKE_COMMAND} -E copy_if_different
 					   ${CMAKE_SOURCE_DIR}/libs/openal-soft/bin/${OS_CPU}/soft_oal.dll 
 					   $<TARGET_FILE_DIR:DoomBFA>/OpenAL32.dll
 					   COMMENT "Copy OpenAL dll")
-	endif(NOT OPENAL_FOUND)
+	endif(NOT OpenAL_FOUND)
 		
 	add_dependencies(DoomBFA idlib external shaders)
 	target_link_libraries(DoomBFA
