@@ -56,7 +56,7 @@ jobs:
             CC: gcc-13
             CXX: g++-13
           working-directory: ${{github.workspace}}/neo
-          run: cmake -B ${{github.workspace}}/build --preset=linux-${{inputs.build_type}}
+          run: cmake -B ${{github.workspace}}/build --preset=linux-${{inputs.build_type}} -DVCPKG_TRACE_FIND_PACKAGE=1
     
         - name: Save vcpkg_installed cache
           uses: actions/cache/save@v3
