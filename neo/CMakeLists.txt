@@ -1903,10 +1903,11 @@ else()
 			${SOUND_COMMON_SOURCES})
 			
 		#if(OPENAL)
-			find_package(OpenAL REQUIRED)
+			find_package(OpenAL CONFIG REQUIRED)
 			add_definitions(-DUSE_OPENAL)
 
-			include_directories(${OPENAL_INCLUDE_DIR})
+			#include_directories(${OPENAL_INCLUDE_DIR})
+			set(OpenAL_LIBRARY PRIVATE OpenAL::OpenAL)
 			
 			#if(CMAKE_CL_64)
 			#	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/lib/win64)
